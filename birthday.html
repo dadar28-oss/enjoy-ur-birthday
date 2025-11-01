@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>pi birthday sayangkuu, bebeykuu cinta manis💖</title>
+<style>
+  :root{
+    --bg1:#fff0f6;
+    --bg2:#fffefc;
+    --accent:#ff4d94;
+    --soft:#ffd9ec;
+    --card:#ffffff;
+    --text:#333;
+  }
+  html,body{
+    height:100%;
+    margin:0;
+    font-family:Inter, "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    background: linear-gradient(180deg,var(--bg1),var(--bg2));
+    color:var(--text);
+  }
+
+  /* Container to center phone-style card */
+  .wrap{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+  }
+
+  /* Phone-like portrait card */
+  .phone {
+    width: 390px;
+    max-width: 96vw;
+    height: 780px;
+    max-height: 96vh;
+    background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,250,250,0.98));
+    border-radius: 28px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.6);
+  }
+
+  /* Top notch-ish area */
+  .topbar{
+    height:60px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+  }
+  .battery {
+    position:absolute;
+    right:14px;
+    top:14px;
+    font-size:12px;
+    color:#aaa;
+  }
+
+  /* Scenes slider */
+  .scenes {
+    position:relative;
+    height: calc(100% - 60px);
+    overflow:hidden;
+    background: transparent;
+  }
+  .slider {
+    height:100%;
+    display:flex;
+    transition: transform 550ms cubic-bezier(.22,.9,.37,1);
+    will-change: transform;
+  }
+  .scene {
+    min-width:100%;
+    height:100%;
+    padding:22px;
+    box-sizing:border-box;
+    overflow:auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Scene layout */
+  .center {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:14px;
+  }
+
+  /* Headline */
+  .headline {
+    font-size:28px;
+    font-weight:800;
+    color:var(--accent);
+    letter-spacing:0.6px;
+    text-align:center;
+    cursor:pointer;
+    user-select:none;
+    padding:8px 12px;
+    border-radius:12px;
+    transition: transform 180ms ease, box-shadow 180ms;
+  }
+  .headline:active { transform:scale(.98); }
+  .sub {
+    color:#ff0404;
+    font-size:13px;
+    text-align:center;
+  }
+
+  /* Photo circle */
+  .photo {
+    width:120px;
+    height:120px;
+    border-radius:999px;
+    overflow:hidden;
+    box-shadow: 0 10px 30px rgba(255,77,148,0.16);
+    border:6px solid rgba(255,255,255,0.9);
+    background:linear-gradient(180deg,#ffeef8,#ffdbe8);
+  }
+  .photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  /* Buttons */
+  .controls {
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    margin-top:10px;
+  }
+  .btn {
+    flex:1;
+    padding:12px 14px;
+    border-radius:12px;
+    background:var(--accent);
+    color:white;
+    font-weight:700;
+    border:none;
+    cursor:pointer;
+    box-shadow: 0 6px 18px rgba(255,77,148,0.18);
+    transition: transform 150ms ease;
+  }
+  .btn.secondary {
+    background:transparent;
+    color:var(--accent);
+    border: 1px solid rgba(255,77,148,0.14);
+    box-shadow:none;
+    font-weight:600;
+  }
+  .btn:active{ transform:translateY(2px); }
+
+  /* Lily petals container (absolute) */
+  .petal-layer {
+    pointer-events:none;
+    position:absolute;
+    inset:60px 0 0 0; /* top area below topbar */
+    z-index:9999;
+    overflow:visible;
+  }
+
+  /* Video style */
+  .video-box {
+    width:100%;
+    aspect-ratio: 9/16;
+    background:#000;
+    border-radius:16px;
+    overflow:hidden;
+    position:relative;
+  }
+  .video-box video {
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:cover;
+    background:#000;
+  }
+  .video-controls {
+    margin-top:10px;
+    display:flex;
+    gap:10px;
+  }
+
+  /* Photo print area */
+  .printer {
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:12px;
+  }
+  .paper-stack {
+    width:220px;
+    height:300px;
+    background:linear-gradient(180deg,#fff,#fff9fb);
+    border-radius:12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    position:relative;
+    overflow:visible;
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    padding-top:12px;
+  }
+  .print-slot {
+    width:180px;
+    height:240px;
+    background:#f6f0f4;
+    border-radius:8px;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+  }
+  .printed-photo {
+    width:160px;
+    height:220px;
+    border-radius:8px;
+    object-fit:cover;
+    position:absolute;
+    top:-260px; /* start off-screen above slot */
+    transform-origin:center;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    transition: transform 700ms cubic-bezier(.22,.9,.37,1), top 700ms;
+  }
+  .printed-photo.show {
+    top:14px;
+    transform:translateY(0) rotate(0deg) scale(1);
+  }
+
+  /* Teddy scene */
+  .teddy-wrap {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+  }
+  .teddy {
+    width:450px;
+    height:500px;
+  }
+  .small-note {
+    color:#666;
+    font-size:12px;
+    letter-spacing:0.6px;
+  }
+
+  /* tiny helpers */
+  .hidden { display:none !important; }
+  .muted {
+    font-size:12px;
+    color:#999;
+    margin-top:6px;
+  }
+
+  /* scrollbar small for scenes */
+  .scene::-webkit-scrollbar{ width:6px; }
+  .scene::-webkit-scrollbar-thumb{ background: rgba(0,0,0,0.08); border-radius:6px; }
+
+  /* Responsive tweak for smaller phones */
+  @media (max-width:360px){
+    .phone { height:770px; }
+    .headline { font-size:24px; }
+    .photo { width:100px; height:100px; }
+    .teddy { width:180px; height:240px; }
+    .paper-stack { width:200px; height:270px; }
+    .printed-photo { width:150px; height:200px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="phone" role="application" aria-label="Surprise Birthday Web">
+    <div class="topbar">
+      <div style="font-weight:700; color:#ff2dae;">for : danish ammara nurfatin :3</div>
+      <div class="battery">🔋 100%</div>
+    </div>
+
+    <div class="scenes">
+      <div class="petal-layer" id="petalLayer" aria-hidden="true"></div>
+
+      <div class="slider" id="slider">
+        <!-- SCENE 1: Headline + intro -->
+        <section class="scene center" id="scene-1">
+          <div style="margin-top:18px" class="center">
+            <div class="photo" aria-hidden="true">
+              <img id="mainPhoto" src="assets/aa.jpeg" alt="photo">
+            </div>
+
+            <div title="Klik untuk surprise" class="headline" id="headlineBtn">happy birthday sayangku, bebeykuu cinta manis 🎉</div>
+            <div class="sub">KLIK TULISAN DI ATAS✨</div>
+
+            <div style="width:100%; margin-top:6px;">
+              <div class="controls">
+                <button class="btn secondary" id="toScenePrev" disabled>Back</button>
+                <button class="btn" id="toSceneNext">Next →</button>
+              </div>
+            </div>
+
+            <div class="muted" style="text-align:center; max-width:260px;">
+             :P
+            </div>
+          </div>
+        </section>
+
+        <!-- SCENE 2: Video -->
+        <section class="scene center" id="scene-2">
+          <div style="width:100%; display:flex; flex-direction:column; align-items:center;">
+            <div class="video-box" id="videoBox">
+              <!-- Ganti VIDEO_SRC di bawah dengan file kamu (mp4/webm). Bisa pakai relative path atau URL. -->
+              <video id="theVideo" playsinline webkit-playsinline controls preload="metadata" source src="assets/WhatsAppVideo2025-11-01at10.48.36PM.mp4">
+                <!-- <source src="assets/WhatsAppVideo2025-11-01at10.48.36PM.mp4" type="video/mp4"> -->
+                <!-- User will replace the source above. If they don't, show placeholder text. -->
+
+                </video>
+            </div>
+
+            <div class="video-controls" style="width:100%; justify-content:center; margin-top:8px;">
+              <button class="btn secondary" id="videoPlayBtn">Play Video</button>
+            </div>
+
+            <div style="width:100%; margin-top:14px;">
+              <div class="controls">
+                <button class="btn secondary" id="backFromVideo">Back</button>
+                <button class="btn" id="nextFromVideo">Next →</button>
+              </div>
+            </div>
+
+            <div class="muted">:P.</div>
+          </div>
+        </section>
+
+        <!-- SCENE 3: Print photos (5) -->
+        <section class="scene center" id="scene-3">
+          <div class="printer">
+            <div style="font-weight:700; color:var(--accent);">bip bip, cetak foto dulu ya 💖</div>
+            <div class="paper-stack" id="paperStack">
+              <div class="print-slot" id="slot">
+                <!-- printed photos inserted here by JS -->
+              </div>
+            </div>
+
+            <div style="width:100%; margin-top:8px; display:flex; gap:10px; justify-content:center;">
+              <button class="btn secondary" id="printBtn">Print All</button>
+            </div>
+
+            <div style="width:100%; margin-top:12px;">
+              <div class="controls">
+                <button class="btn secondary" id="backFromPrint">Back</button>
+                <button class="btn" id="nextFromPrint" disabled>Next →</button>
+              </div>
+            </div>
+            <div class="muted"></div>
+          </div>
+        </section>
+
+        <!-- SCENE 4: Teddy final -->
+        <section class="scene center" id="scene-4">
+          <div class="teddy-wrap">
+            <!-- Inline simple cute teddy SVG (pink) holding rose -->
+            <div class="teddy" aria-hidden="true">
+              <!-- simplified vector teddy drawing -->
+              <svg viewBox="0 0 300 400" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="g1" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0" stop-color="#ffd6ea"/>
+                    <stop offset="1" stop-color="#ffb6d8"/>
+                  </linearGradient>
+                </defs>
+                <!-- ears -->
+                <ellipse cx="95" cy="70" rx="50" ry="48" fill="url(#g1)"/>
+                <ellipse cx="205" cy="70" rx="50" ry="48" fill="url(#g1)"/>
+                <!-- head -->
+                <ellipse cx="150" cy="120" rx="90" ry="86" fill="url(#g1)"/>
+                <!-- body -->
+                <ellipse cx="150" cy="260" rx="100" ry="120" fill="#ffdbe8"/>
+                <!-- eyes & nose -->
+                <circle cx="125" cy="110" r="8" fill="#3b2b2b"/>
+                <circle cx="175" cy="110" r="8" fill="#3b2b2b"/>
+                <ellipse cx="150" cy="135" rx="14" ry="10" fill="#3b2b2b"/>
+                <!-- paws holding rose -->
+                <g transform="translate(0,32)">
+                  <ellipse cx="110" cy="260" rx="20" ry="26" fill="#ffd6ea"/>
+                  <ellipse cx="190" cy="260" rx="20" ry="26" fill="#ffd6ea"/>
+                </g>
+                <!-- rose (simple) -->
+                <g transform="translate(162,200) scale(0.9)">
+                  <rect x="-2" y="20" width="6" height="80" rx="3" fill="#7a3b3b"/>
+                  <ellipse cx="1" cy="10" rx="18" ry="14" fill="#ff6f91"/>
+                  <path d="M-8 6 q8 -10 16 0 q-6 -8 -16 0" fill="#ff3b7a" opacity="0.9"/>
+                </g>
+              </svg>
+            </div>
+
+            <div style="font-weight:700; color:var(--accent);">surprise!!! 🎁</div>
+            <div class="small-note">i love you :3 &lt;3</div>
+
+            <div style="width:100%; margin-top:20px;">
+              <div class="controls">
+                <button class="btn secondary" id="backFromTeddy">Back</button>
+                <button class="btn" id="restartBtn">Restart</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div> <!-- scenes -->
+  </div> <!-- phone -->
+</div> <!-- wrap -->
+
+<!-- Audio element (background music) -->
+<!-- Ganti MUSIC_SRC dengan file kamu; bisa path lokal atau URL (pastikan CORS kalau dari remote). -->
+<audio id="bgMusic" loop preload="auto">
+  <!-- <source src="assets/Glenn Fredly - Kasih Putih.mp3" type="audio/mpeg"> -->
+</audio>
+
+<script>
+/* ============================
+  CONFIG: ganti sesuai kamu
+  - MUSIC_SRC: ganti dengan link musik latarmu (mp3)
+  - VIDEO_SRC: video nanti kamu tambahkan sendiri (lihat comment di tag <video>)
+  - PHOTOS: array 15 foto (ganti url)
+============================ */
+const MUSIC_SRC = "assets/GlennFredly-KasihPutih.mp3"; // contoh: "assets/music.mp3"  <-- ganti sendiri
+const PHOTOS = [
+  "assets/cintaa.jpeg",
+  "assets/fotbar1.jpeg",
+  "assets/fotbar2.jpeg",
+  "assets/fotbar3.jpeg",
+  "assets/versijumat.jpeg",
+  "assets/d.jpeg",
+  "assets/a.jpeg",
+  "assets/n.jpeg",
+  "assets/i.jpeg",
+  "assets/s.jpeg",
+  "assets/h.jpeg",
+  "assets/am.jpeg",
+  "assets/m.jpeg",
+  "assets/ar.jpeg",
+  "assets/aa.jpeg"
+
+];
+/* NOTE: Ganti PHOTOS dengan 15 foto kalian. Jika kamu ingin menggunakan local files,
+   simpan foto di folder yang sama lalu pakai "photo1.jpg" dst. */
+
+/* ============================
+   Core logic
+   ============================ */
+const slider = document.getElementById('slider');
+const toSceneNext = document.getElementById('toSceneNext');
+const toScenePrev = document.getElementById('toScenePrev');
+const headlineBtn = document.getElementById('headlineBtn');
+const petalLayer = document.getElementById('petalLayer');
+const bgMusic = document.getElementById('bgMusic');
+const theVideo = document.getElementById('theVideo');
+const videoPlayBtn = document.getElementById('videoPlayBtn');
+
+let currentIndex = 0; // 0..3 for 4 scenes
+const totalScenes = 4;
+
+/* init music src if provided */
+if (MUSIC_SRC && bgMusic.querySelector('source') === null) {
+  const src = document.createElement('source');
+  src.src = MUSIC_SRC;
+  src.type = "audio/mpeg";
+  bgMusic.appendChild(src);
+  bgMusic.load();
+}
+
+/* Slide helper */
+function goTo(index) {
+  if (index < 0) index = 0;
+  if (index >= totalScenes) index = totalScenes - 1;
+  currentIndex = index;
+  slider.style.transform = `translateX(-${index * 100}%)`;
+  // manage Prev/Next enable states (top-left buttons)
+  toScenePrev.disabled = (index === 0);
+  toSceneNext.disabled = (index === totalScenes - 1);
+}
+
+/* bind top controls */
+toSceneNext.addEventListener('click', ()=> goTo(currentIndex + 1));
+toScenePrev.addEventListener('click', ()=> goTo(currentIndex - 1));
+
+/* also bind scene-specific nav buttons */
+document.getElementById('backFromVideo').addEventListener('click', ()=> goTo(0));
+document.getElementById('nextFromVideo').addEventListener('click', ()=> goTo(2));
+document.getElementById('backFromPrint').addEventListener('click', ()=> goTo(1));
+document.getElementById('nextFromPrint').addEventListener('click', ()=> goTo(3));
+document.getElementById('backFromTeddy').addEventListener('click', ()=> goTo(2));
+document.getElementById('restartBtn').addEventListener('click', ()=> {
+  // reset prints and petal layer
+  resetPrinted();
+  clearPetals();
+  goTo(0);
+});
+
+/* HEADLINE click => spawn lilies & start music */
+let headlineClicked = false;
+headlineBtn.addEventListener('click', async () => {
+  if (!headlineClicked) {
+    headlineClicked = true;
+    spawnPetals(28); // many lilies
+    // try to play music; if blocked, user may need to tap
+    try {
+      await bgMusic.play();
+    } catch(e) {
+      // autoplay blocked; show short nudge
+      showTapNudge();
+    }
+  }
+});
+
+/* small tap nudge overlay when autoplay blocked */
+function showTapNudge() {
+  const n = document.createElement('div');
+  n.textContent = "Tap any area to enable sound ▶";
+  n.style.position = "absolute";
+  n.style.left = "50%";
+  n.style.top = "50%";
+  n.style.transform = "translate(-50%,-50%)";
+  n.style.background = "rgba(255,255,255,0.95)";
+  n.style.color = "#ff2d75";
+  n.style.padding = "10px 14px";
+  n.style.borderRadius = "12px";
+  n.style.boxShadow = "0 6px 18px rgba(0,0,0,0.12)";
+  n.style.zIndex = 200;
+  document.querySelector('.phone').appendChild(n);
+  const remove = ()=> { n.remove(); document.removeEventListener('click', remove); bgMusic.play().catch(()=>{}); };
+  document.addEventListener('click', remove, { once:true });
+}
+
+/* PETALS (lily-like) animation using small SVG petals */
+function spawnPetals(count=20) {
+  const layer = petalLayer;
+  layer.innerHTML = ''; // clear existing
+  const w = layer.clientWidth || window.innerWidth;
+  for (let i=0;i<50; i++){
+    const p = document.createElement('div');
+    p.className = 'petal';
+    const size = 12 + Math.random()*18;
+    const left = Math.random()*100;
+    p.style.position = 'absolute';
+    p.style.left = left + '%';
+    p.style.top = '-10%';
+    p.style.width = size+'px';
+    p.style.height = size+'px';
+    p.style.pointerEvents = 'none';
+    p.style.zIndex = 90;
+    p.innerHTML = petalSVG(size);
+    layer.appendChild(p);
+
+    // animate via JS
+    const duration = 7000 + Math.random()*5000;
+    const sway = (Math.random()*120) - 60;
+    p.animate([
+      { transform: `translateY(0px) rotate(${Math.random()*60}deg) translateX(0px)`, opacity:0 },
+      { transform: `translateY(${window.innerHeight + 200}px) rotate(${Math.random()*360}deg) translateX(${sway}px)`, opacity:1 }
+    ], {
+      duration,
+      easing: 'cubic-bezier(.2,.9,.3,1)',
+      iterations: 1,
+      fill: 'forwards'
+    });
+
+    // remove after animation
+    setTimeout(()=> { try{ p.remove(); } catch(e){} }, duration+200);
+  }
+}
+
+/* petal SVG generator (simple lily-ish petal) */
+function petalSVG(size){
+  // a small pink petal shape (SVG)
+  return `<svg width="${size}" height="${size*2.2}" viewBox="0 0 32 36" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16 2 C22 8, 30 12, 18 28 C8 12, 14 6, 16 2 Z" 
+      fill="#ff70b8" 
+      stroke="#ff2d75" 
+      stroke-width="0.8" 
+      filter="drop-shadow(0 0 4px #ff9fcb)" />
+  </svg>`;
+}
+
+/* clear petals */
+function clearPetals(){ petalLayer.innerHTML=''; }
+
+/* VIDEO logic:
+   - video play => pause bgMusic
+   - video ended => resume bgMusic
+   - also tie Play button
+*/
+videoPlayBtn.addEventListener('click', ()=>{
+  if (!theVideo.querySelector('source')) {
+    alert('Masukkan dulu source video pada tag <video> di file ini, atau drag file video ke dalam element video (mobile mungkin tidak support).');
+    return;
+  }
+  theVideo.play().catch(()=>{ /* ignore */ });
+});
+theVideo.addEventListener('play', ()=>{
+  try { bgMusic.pause(); } catch(e) {}
+});
+theVideo.addEventListener('pause', ()=>{
+  // do nothing on manual pause (don't auto-resume)
+});
+theVideo.addEventListener('ended', ()=>{
+  // resume music automatically
+  if (bgMusic.paused) { bgMusic.play().catch(()=>{}); }
+});
+
+/* PRINT PHOTOS:
+   - create 15 img elements with class printed-photo
+   - animate them one-by-one into view
+*/
+const printBtn = document.getElementById('printBtn');
+const slot = document.getElementById('slot');
+const nextFromPrint = document.getElementById('nextFromPrint');
+
+function resetPrinted(){
+  slot.innerHTML = '';
+  nextFromPrint.disabled = true;
+}
+resetPrinted();
+
+addEventListener('click', async ()=>{
+  resetPrinted();
+  // ensure we have exactly 15 phoprintBtn.tos (if less, repeat)
+  printBtn.addEventListener('click', async ()=>{
+  resetPrinted();
+  // cetak semua 15 foto (kalau kurang, loop ulang)
+  const list = [];
+  for (let i=0;i<15;i++) list.push(PHOTOS[i % PHOTOS.length] || PHOTOS[0]);
+  for (let i=0;i<list.length;i++){
+    const img = document.createElement('img');
+    img.className = 'printed-photo';
+    img.src = list[i];
+    img.alt = `print-${i+1}`;
+    img.style.transform = `rotate(${(Math.random()*10)-5}deg) scale(.98)`;
+    img.style.opacity = 0;
+    slot.appendChild(img);
+    await delay(2000); // sedikit lebih cepat biar gak kelamaan
+    img.classList.add('show');
+    img.style.opacity = 1;
+  }
+  nextFromPrint.disabled = false;
+});
+
+  for (let i=0;i<list.length;i++){
+    const img = document.createElement('img');
+    img.className = 'printed-photo';
+    img.src = list[i];
+    img.alt = `print-${i+1}`;
+    // slight rotation per photo
+    img.style.transform = `rotate(${(Math.random()*10)-5}deg) scale(.98)`;
+    img.style.opacity = 0;
+    slot.appendChild(img);
+    // staggered reveal
+    await delay(650);
+    img.classList.add('show');
+    img.style.opacity = 1;
+  }
+  // enable next
+  nextFromPrint.disabled = false;
+});
+
+/* helper delay */
+function delay(ms){ return new Promise(resolve => setTimeout(resolve, ms)); }
+
+/* initial goTo(0) */
+goTo(0);
+
+/* Buttons inside top area also move to next/back - already bound.
+   Additional: when user moves to video scene, try to pause music if video will play,
+   but we keep music playing until they press Play. Behavior per spec:
+   - Music plays from scene 1 (after headline click)
+   - When video Play pressed, pause music (handled by 'play' event)
+   - After video ends, resume music (handled)
+*/
+
+/* Accessibility & small extra: allow tap on phone area to unmute music if autoplay blocked */
+document.querySelector('.phone').addEventListener('click', async (e)=>{
+  // if headline clicked but bgMusic not playing, attempt to play
+  if (headlineClicked && bgMusic && bgMusic.paused) {
+    try { await bgMusic.play(); } catch(e) {}
+  }
+});
+
+/* Expose simple API at window so user can set sources easily in console (optional) */
+window.SURPRISE = {
+  setMusic: (url)=> {
+    bgMusic.innerHTML = '';
+    const s = document.createElement('source'); s.src = url; s.type='audio/mpeg';
+    bgMusic.appendChild(s); bgMusic.load();
+  },
+  setPhotos: (arr)=> {
+    if (Array.isArray(arr) && arr.length>0) {
+      // replace PHOTOS contents (not const-safe but okay)
+      for (let i=0;i<5;i++) PHOTOS[i]=arr[i%arr.length];
+      alert('Photos updated for print (in memory).');
+    }
+  },
+  setVideoSource: (url, type='video/mp4')=>{
+    theVideo.innerHTML = '';
+    const s = document.createElement('source'); s.src = url; s.type = type;
+    theVideo.appendChild(s); theVideo.load();
+  }
+};
+
+/* enable/disable top next button based on current index */
+const topNextBtn = document.getElementById('toSceneNext');
+const topPrevBtn = document.getElementById('toScenePrev');
+
+/* keep top Next/Prev in sync when using other buttons */
+const sceneButtons = document.querySelectorAll('.controls .btn');
+sceneButtons.forEach(b=>{
+  b.addEventListener('click', ()=> {
+    // tiny timeout to allow goTo to update
+    setTimeout(()=> {
+      topPrevBtn.disabled = (currentIndex === 0);
+      topNextBtn.disabled = (currentIndex === totalScenes-1);
+    }, 10);
+  });
+});
+
+/* final small polish: when we go to scene 4 (teddy) ensure music playing */
+const obs = new MutationObserver(()=> {
+  if (currentIndex === 3) {
+    if (bgMusic.paused && headlineClicked) bgMusic.play().catch(()=>{});
+  }
+});
+obs.observe(slider, { attributes: true, attributeFilter: ['style'] });
+
+/* clear petals when navigating away from scene 1 after a short while */
+document.getElementById('toSceneNext').addEventListener('click', ()=> { setTimeout(clearPetals, 900); });
+
+</script>
+</body>
+</html>
